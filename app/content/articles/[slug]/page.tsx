@@ -1,13 +1,21 @@
-import { getPostBySlug } from '@/lib/posts';
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
+
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
+  const authorName = process.env.NEXT_PUBLIC_AUTHOR_NAME ?? 'Author';
 
   if (!post) {
     notFound();
@@ -38,7 +46,7 @@ export default async function PostPage({ params }: PageProps) {
       flex items-center gap-2
     ">
       <span className="text-xs opacity-70">Author</span>
-      <span>{process.env.NEXT_PUBLIC_AUTHOR_NAME}</span>
+      <span>{authorName}</span>
     </div>
   </div>
 </header>

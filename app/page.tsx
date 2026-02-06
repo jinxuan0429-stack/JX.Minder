@@ -163,7 +163,7 @@ export default function IntegratedLanding() {
             animate={{ opacity: 1, y: 0 }}
             className="text-white font-mono text-[10px] tracking-[0.6em] uppercase opacity-40"
           >
-            Terminal Interface v1.0.4
+            JX.Minder v1.0.4
           </motion.p>
           <div className="w-32 h-[1px] bg-white/20 mt-4 overflow-hidden">
             <motion.div

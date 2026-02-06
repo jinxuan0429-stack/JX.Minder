@@ -10,7 +10,9 @@ const postsDirectory = path.join(process.cwd(), 'content/articles');
 export async function getAllPosts() {
   if (!fs.existsSync(postsDirectory)) return [];
   
-  const fileNames = fs.readdirSync(postsDirectory);
+  const fileNames = fs
+    .readdirSync(postsDirectory)
+    .filter((fileName) => fileName.endsWith('.md'));
   const allPostsData = fileNames.map((fileName) => {
     const slug = fileName.replace(/\.md$/, '');
     const fullPath = path.join(postsDirectory, fileName);
